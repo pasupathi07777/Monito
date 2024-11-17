@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useService } from '../../service/ServiceProvider';
 
 const PetsInfo = () => {
+    const {PORT}=useService()
     const [products, setProducts] = useState([]);
     const [form, setForm] = useState({
         question: "",
@@ -52,7 +54,7 @@ const PetsInfo = () => {
         try {
             if (editMode) {
                 console.log("Editing product ID:", productIdToEdit); // Log ID to check
-                const response = await axios.put(`http://localhost:5000/api/route/updateinformation/${productIdToEdit}`, productData, {
+                const response = await axios.put(`${PORT}/api/route/updateinformation/${productIdToEdit}`, productData, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 });
                 setProducts((prevProducts) =>
@@ -63,7 +65,7 @@ const PetsInfo = () => {
                 setEditMode(false);
                 setProductIdToEdit(null);
             } else {
-                const response = await axios.post('http://localhost:5000/api/route/add', productData);
+                const response = await axios.post(`${PORT}/api/route/add`, productData);
                 console.log('API Response:', response.data);
                 setProducts((prevProducts) => Array.isArray(prevProducts) ? [...prevProducts, response.data] : [response.data]);
             }
@@ -87,7 +89,7 @@ const PetsInfo = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/route/getinformation');
+                const response = await axios.get(`${PORT}/api/route/getinformation`);
                 setProducts(response.data.allInformation || []); // Ensure it defaults to an array
                 console.log(response.data.allInformation)
             } catch (error) {
@@ -104,7 +106,7 @@ const PetsInfo = () => {
 
 
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:5000/api/route/deleteinformation/${id}`)
+        axios.delete(`${PORT}/api/route/deleteinformation/${id}`)
             .then(() => setProducts((prevProducts) => prevProducts.filter((product) => product._id !== id)))
             .catch((error) => console.error('Error deleting product:', error));
     };

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./AddPetsProduct.css";
+import { useService } from '../../service/ServiceProvider';
 
 const AddPetsProduct = () => {
+    const {PORT}=useService()
     const [products, setProducts] = useState([]);
     const [form, setForm] = useState({
         seller: '',
@@ -21,7 +23,7 @@ const AddPetsProduct = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/products/getproduct');
+                const response = await axios.get(`${PORT}/api/products/getproduct`);
                 setProducts(response.data.allPets);
             } catch (error) {
                 console.error('Error fetching products:', error);
@@ -68,7 +70,7 @@ const AddPetsProduct = () => {
         try {
             if (editMode) {
                 console.log("Editing product ID:", productIdToEdit);
-                const response = await axios.put(`http://localhost:5000/api/products/updateproduct/${productIdToEdit}`, productData, {
+                const response = await axios.put(`${PORT}/api/products/updateproduct/${productIdToEdit}`, productData, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 });
                 setProducts((prevProducts) =>
@@ -78,7 +80,7 @@ const AddPetsProduct = () => {
                 );
                 resetForm();
             } else {
-                const response = await axios.post('http://localhost:5000/api/products/postproduct', productData, {
+                const response = await axios.post(`${PORT}/api/products/postproduct`, productData, {
                     headers: { 'Content-Type': 'multipart/form-data' }
                 });
                 setProducts((prevProducts) => [...prevProducts, response.data]);
@@ -104,7 +106,7 @@ const AddPetsProduct = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/products/deleteproduct/${id}`);
+            await axios.delete(`${PORT}/api/products/deleteproduct/${id}`);
             setProducts((prevProducts) => prevProducts.filter((product) => product._id !== id));
         } catch (error) {
             console.error('Error deleting product:', error);

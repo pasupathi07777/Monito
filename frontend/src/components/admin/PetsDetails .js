@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./PetsDetails.css";
+import { useService } from '../../service/ServiceProvider';
 
 const PetsDetails = () => {
+    const {PORT}=useService()
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -10,7 +12,7 @@ const PetsDetails = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/animal/getanimals');
+                const response = await axios.get(`${PORT}/api/animal/getanimals`);
                 setProducts(response.data.allPets);
             } catch (error) {
                 setError('Error fetching products');

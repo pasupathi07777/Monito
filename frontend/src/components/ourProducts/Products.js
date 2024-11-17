@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import './Products.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useService } from '../../service/ServiceProvider'
 const Products = () => {
+    const {PORT}=useService()
     const arr = [1, 2, 3, 4, 5, 6, 7, 8]
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate=useNavigate()
     useEffect(() => {
-        axios.get('http://localhost:5000/api/products/getproduct')
+        axios.get(`${PORT}/api/products/getproduct`)
             .then((response) => {
                 console.log(response.data.allPets);
                 setProducts(response.data.allPets);

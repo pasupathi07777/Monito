@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../category/CategoryPetsCollections.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
+import {useService} from '../../service/ServiceProvider'
 
 const CategoryPetsCollections = () => {
+    const {PORT}=useService()
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/animal/getanimals')
+        axios.get(`${PORT}/api/animal/getanimals`)
             .then((response) => {
                 setProducts(response.data.allPets);
                 setLoading(false);

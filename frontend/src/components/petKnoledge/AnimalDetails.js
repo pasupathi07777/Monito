@@ -6,9 +6,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../nav/Navbar';
+import { useService } from '../../service/ServiceProvider';
 
 
 const AnimalDetails = () => {
+    const {PORT}=useService()
     const arr = [1, 2, 3, 4, 5, 6, 7, 8]
 
     const [products, setProducts] = useState([]);
@@ -18,7 +20,7 @@ const navigate=useNavigate()
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/route/getinformation');
+                const response = await axios.get(`${PORT}/api/route/getinformation`);
                 setProducts(response.data.allInformation || []); // Ensure it defaults to an array
                 console.log(response.data.allInformation)
             } catch (error) {

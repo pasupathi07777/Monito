@@ -5,8 +5,10 @@ import Footer from "../footer/Footer";
 import Navbar from "../nav/Navbar";
 import './Details.css';
 import { useNavigate } from 'react-router-dom';
+import { useService } from '../../service/ServiceProvider';
 
 const Details = () => {
+    const {PORT}=useService()
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -16,7 +18,7 @@ const Details = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/animal/getAnimalById/${id}`);
+                const response = await axios.get(`${PORT}/api/animal/getAnimalById/${id}`);
                 setProduct(response.data.pet);
             } catch (error) {
                 setError('Failed to load product details.'); // Update error state

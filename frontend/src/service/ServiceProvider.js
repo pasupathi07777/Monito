@@ -4,6 +4,10 @@ import auth from "../firebase/firebase";
 const ContextProvider = createContext()
 
 export const Context = ({ children }) => {
+
+    const  PORT  =process.env.REACT_APP_API_URL
+    // const  PORT  = "http://localhost:5000"
+    console.log(PORT)
     
    
   
@@ -21,7 +25,7 @@ export const Context = ({ children }) => {
     return (
         <ContextProvider.Provider value={{
           
-             logout
+             logout,PORT
          
             
 

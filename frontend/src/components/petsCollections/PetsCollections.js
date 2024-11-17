@@ -3,14 +3,16 @@ import './PetsCollections.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../nav/Navbar';
+import { useService } from '../../service/ServiceProvider';
 
 
 const PetsCollections = () => {
+    const {PORT}=useService()
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     useEffect(() => {
-        axios.get('http://localhost:5000/api/animal/getanimals')
+        axios.get(`${PORT}/api/animal/getanimals`)
             .then((response) => {
                 console.log(response.data.allPets);
                 setProducts(response.data.allPets);

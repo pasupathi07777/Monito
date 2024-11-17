@@ -2,15 +2,17 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../nav/Navbar";
+import { useService } from "../../service/ServiceProvider";
 
 const Search = () => {
+  const {PORT}=useService()
   const { input } = useParams();
   const [searchProduct, setSearchProduct] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/animal/getanimals")
+      .get(`${PORT}/api/animal/getanimals`)
       .then((response) => {
         console.log(response.data.allPets);
         setSearchProduct(response.data.allPets);

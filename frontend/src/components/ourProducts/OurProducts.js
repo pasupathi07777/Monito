@@ -135,15 +135,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useService } from "../../service/ServiceProvider";
 
 const OurProducts = () => {
+  const {PORT}=useService()
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/products/getproduct")
+      .get(`${PORT}/api/products/getproduct`)
       .then((response) => {
         setProducts(response.data.allPets || []);
         setLoading(false);

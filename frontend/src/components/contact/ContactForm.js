@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useService } from '../../service/ServiceProvider';
 
 const ContactForm = () => {
+  const {PORT}=useService()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,7 +25,7 @@ const ContactForm = () => {
     setErrorMessage('');
 
     try {
-      await axios.post('http://localhost:5000/send-email', formData);
+      await axios.post(`${PORT}/send-email`, formData);
       setSuccessMessage('Your message has been sent successfully!');
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
