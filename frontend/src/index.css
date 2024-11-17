@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+  box-sizing: border-box; /* Apply globally for all elements */
+  font-family: "Poppins", sans-serif;
+}
+
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#root {
+  display: flex;
+  flex-grow: 1;
+
+}
+.App{
+    width: 100%;
+    height: 100%;
+
+    
+}
+
+body {
+    font-family: 'SVN-Gilroy', sans-serif;
+}
+
+
+

@@ -1,0 +1,22 @@
+.Banner-friend {
+
+
+    background-image: url('../../img/banner/frienssm.svg');
+  
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* transform: rotate(90deg); */
+}
+
+@media (min-width:769px) {
+    .Banner-friend {
+
+        background-image: url('../../img/banner/friendBannerBg.svg');
+
+
+    }
+
+
+}

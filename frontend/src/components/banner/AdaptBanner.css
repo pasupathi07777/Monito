@@ -1,0 +1,23 @@
+.Banner-adopt {
+
+  
+    /* background-image: url('../../img/banner/adoptbg.svg'); */
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* transform: rotate(90deg); */
+}
+
+
+@media (min-width:769px) {
+    .Banner-adopt {
+
+        background-image: url('../../img/banner/adoptbg.svg');
+      
+
+
+    }
+
+
+}

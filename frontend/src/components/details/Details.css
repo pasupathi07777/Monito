@@ -1,0 +1,31 @@
+.container {
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: 100vh; /* Ensure it has a height to scroll */
+    -ms-overflow-style: none; /* Hide scrollbar in IE and Edge */
+    scrollbar-width: none; /* Hide scrollbar in Firefox */
+    max-width: 100%; /* Ensure it doesn't exceed the viewport width */
+    padding: 0 1rem; /* Add padding for smaller screens */
+    box-sizing: border-box; /* Include padding in width calculations */
+}
+
+/* Hiding scrollbar in WebKit browsers (like Chrome) */
+.container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in Chrome, Safari, and other WebKit browsers */
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+    .container {
+        padding: 0; /* Remove padding for larger screens */
+    }
+
+    .product-details {
+        flex-direction: row; /* Ensure it displays in a row on larger screens */
+    }
+
+    .product-details img {
+        max-width: 100%; /* Allow image to scale responsively */
+        height: auto; /* Maintain aspect ratio */
+    }
+}
+
