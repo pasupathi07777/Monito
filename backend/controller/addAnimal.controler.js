@@ -17,32 +17,91 @@ const addProduct = async (req, res) => {
     }
 };
 
+// const getAnimals = async (req, res) => {
+//     try {
+//         const allPets = await animalModel.find();
+//         const allProducts = await Promise.all(
+//             allPets.map(async (pet) => {
+//                 const images = await Promise.all(
+//                     pet.images.map(async (imgPath) => {
+//                         const imagePath = path.join(__dirname, '..', imgPath);
+//                         try {
+//                             const data = await fs.promises.readFile(imagePath);
+//                             return data.toString('base64');
+//                         } catch (error) {
+//                             console.error('Error reading image file:', error);
+//                             return null;
+//                         }
+//                     })
+//                 );
+//                 return { ...pet._doc, images: images.filter((img) => img !== null) };
+//             })
+//         );
+//         // console.log(allProducts)
+//         res.status(200).json({ success: true, allPets: allProducts });
+//     } catch (error) {
+//         console.error('Error getting animals:', error);
+//         res.status(500).json({ success: false, message: error.message });
+//     }
+// };
+
+// 
+
+
+
+
+
 const getAnimals = async (req, res) => {
     try {
         const allPets = await animalModel.find();
+
         const allProducts = await Promise.all(
             allPets.map(async (pet) => {
+                // Assuming the images array contains the relative paths from your 'uploads' directory
                 const images = await Promise.all(
                     pet.images.map(async (imgPath) => {
-                        const imagePath = path.join(__dirname, '..', imgPath);
+                        // Construct the absolute path to the image file in the 'uploads' directory
+                        const imagePath = path.join(__dirname, '..', 'uploads', path.basename(imgPath)); // Adjust path to point to 'uploads' directory
+                        
+                        console.log('Reading image file at:', imagePath);  // Log the image path for debugging
+
                         try {
                             const data = await fs.promises.readFile(imagePath);
-                            return data.toString('base64');
+                            return data.toString('base64');  // Convert image to base64
                         } catch (error) {
                             console.error('Error reading image file:', error);
-                            return null;
+                            return null;  // Return null if image cannot be read
                         }
                     })
                 );
+
+                // Filter out null values in case some images couldn't be read
                 return { ...pet._doc, images: images.filter((img) => img !== null) };
             })
         );
+console.log(allProducts)
         res.status(200).json({ success: true, allPets: allProducts });
     } catch (error) {
         console.error('Error getting animals:', error);
         res.status(500).json({ success: false, message: error.message });
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const getAnimalById = async (req, res) => {
     const { id } = req.params; // Extracting the id from the request parameters
