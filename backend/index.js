@@ -15,8 +15,8 @@ const nodemailer = require('nodemailer');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve images
+// app.use(bodyParser.json({ limit: '50mb' }));
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); 
 dbConnection();
 
 // API Routes
